@@ -1,4 +1,3 @@
-import React from "react";
 import { FormControl, Select, MenuItem, Typography } from "@mui/material";
 
 export const CustomSelect = ({

@@ -1,4 +1,5 @@
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -38,19 +39,21 @@ export const CustomTable = ({ data, columns, onEdit, onDelete }) => {
   };
 
   return (
-    <>
-      <Table>
+    <Box sx={{ overflowX: "auto" }}>
+      <Table sx={{ minWidth: 600 }}>
         <TableHead>
           <TableRow>
             {columns.map((column) => (
               <TableCell
                 key={column.field}
-                sx={{ width: column.width || "auto" }}
+                sx={{ width: column.width || "auto", fontWeight: "bold" }}
               >
                 {column.label}
               </TableCell>
             ))}
-            <TableCell>Actions</TableCell>
+            <TableCell sx={{ width: "auto", fontWeight: "bold" }}>
+              Actions
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -97,6 +100,6 @@ export const CustomTable = ({ data, columns, onEdit, onDelete }) => {
         severity={snackbarSeverity}
         onClose={handleSnackbarClose}
       />
-    </>
+    </Box>
   );
 };

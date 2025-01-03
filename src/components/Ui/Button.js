@@ -16,6 +16,7 @@ export const CustomButton = ({
       color: "#ffffff",
       "&:hover": {
         backgroundColor: "#333333",
+        transform: "scale(1.1)",
       },
     },
     outlined: {
@@ -24,6 +25,7 @@ export const CustomButton = ({
       border: "1px solid #000000",
       "&:hover": {
         backgroundColor: "#f5f5f5",
+        transform: "scale(1.1)",
       },
     },
     text: {
@@ -31,6 +33,7 @@ export const CustomButton = ({
       color: "#000000",
       "&:hover": {
         backgroundColor: "#e0e0e0",
+        transform: "scale(1.1)",
       },
     },
   };
@@ -48,6 +51,7 @@ export const CustomButton = ({
         fontSize: "0.875rem",
         textTransform: "none",
         borderRadius: 2,
+        transition: "transform 0.2s ease, background-color 0.2s ease",
         ...baseStyles[variant],
         ...sx,
       }}
