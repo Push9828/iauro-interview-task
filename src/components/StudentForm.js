@@ -94,6 +94,19 @@ export const StudentForm = ({
     });
   };
 
+  const isFormValid = () => {
+    return (
+      formData.name &&
+      formData.gender &&
+      formData.class &&
+      formData.streams &&
+      formData.subjects.length > 0 &&
+      formData.modeOfTransport &&
+      formData.preferredLanguage.length > 0 &&
+      formData.boardingType
+    );
+  };
+
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
@@ -225,7 +238,7 @@ export const StudentForm = ({
         </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <CustomButton type="submit">
+          <CustomButton type="submit" disabled={!isFormValid()}>
             {editingIndex !== null ? "Save" : "Submit"}
           </CustomButton>
         </Box>

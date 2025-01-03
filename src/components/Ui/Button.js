@@ -8,6 +8,7 @@ export const CustomButton = ({
   type = "button",
   sx = {},
   onClick,
+  disabled = false,
 }) => {
   const baseStyles = {
     contained: {
@@ -41,6 +42,7 @@ export const CustomButton = ({
       type={type}
       fullWidth={fullWidth}
       onClick={onClick}
+      disabled={disabled}
       sx={{
         mt: 3,
         fontSize: "0.875rem",
