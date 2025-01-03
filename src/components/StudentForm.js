@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   CustomTextField,
   CustomRadioGroup,
@@ -18,7 +18,12 @@ const subjectsList = ["Math", "Science", "English", "History"];
 const languagesList = ["English", "Hindi", "French", "Spanish", "German"];
 const transportOptions = ["School Bus", "Own Transport", "Other"];
 
-export const StudentForm = ({ addStudent }) => {
+export const StudentForm = ({
+  addStudent,
+  handleSaveEdit,
+  editingIndex,
+  studentToEdit,
+}) => {
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
@@ -29,6 +34,12 @@ export const StudentForm = ({ addStudent }) => {
     preferredLanguage: [],
     boardingType: "",
   });
+
+  useEffect(() => {
+    if (editingIndex !== null && studentToEdit) {
+      setFormData({ ...studentToEdit });
+    }
+  }, [editingIndex, studentToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,12 +67,17 @@ export const StudentForm = ({ addStudent }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStudent(formData);
+    if (editingIndex !== null) {
+      handleSaveEdit(formData, editingIndex);
+    } else {
+      addStudent(formData);
+    }
+
     setFormData({
       name: "",
       gender: "",
       class: "",
-      streams: [],
+      streams: "",
       subjects: [],
       modeOfTransport: "",
       preferredLanguage: [],
@@ -72,10 +88,11 @@ export const StudentForm = ({ addStudent }) => {
   return (
     <Box
       sx={{
-        p: 4,
+        py: 3,
+        px: 4,
         maxWidth: 500,
         mx: "auto",
-        mt: 5,
+        mt: 1,
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
         borderRadius: 3,
         backgroundColor: "#fff",
@@ -194,8 +211,10 @@ export const StudentForm = ({ addStudent }) => {
           />
         </Box>
 
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
-          <CustomButton type="submit">Submit</CustomButton>
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <CustomButton type="submit">
+            {editingIndex !== null ? "Save" : "Submit"}
+          </CustomButton>
         </Box>
       </form>
     </Box>
