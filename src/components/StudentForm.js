@@ -4,6 +4,7 @@ import {
   CustomRadioGroup,
   CustomButton,
   CustomSelect,
+  CustomSnackbar,
 } from "./Ui";
 import {
   Box,
@@ -35,6 +36,10 @@ export const StudentForm = ({
     boardingType: "",
   });
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("");
+
   useEffect(() => {
     if (editingIndex !== null && studentToEdit) {
       setFormData({ ...studentToEdit });
@@ -43,7 +48,6 @@ export const StudentForm = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -69,9 +73,14 @@ export const StudentForm = ({
     e.preventDefault();
     if (editingIndex !== null) {
       handleSaveEdit(formData, editingIndex);
+      setSnackbarMessage("Student information updated successfully!");
+      setSnackbarSeverity("success");
     } else {
       addStudent(formData);
+      setSnackbarMessage("New student added successfully!");
+      setSnackbarSeverity("success");
     }
+    setSnackbarOpen(true);
 
     setFormData({
       name: "",
@@ -83,6 +92,10 @@ export const StudentForm = ({
       preferredLanguage: [],
       boardingType: "",
     });
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -217,6 +230,12 @@ export const StudentForm = ({
           </CustomButton>
         </Box>
       </form>
+      <CustomSnackbar
+        open={snackbarOpen}
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+        onClose={handleSnackbarClose}
+      />
     </Box>
   );
 };
